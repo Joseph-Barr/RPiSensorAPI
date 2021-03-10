@@ -61,9 +61,19 @@ router.get('/latest', function (req, res, next) {
         // Use the connection
         connection.query(query, (error, results, fields) => {
             console.log(results);
-            res.status(200).json({
-                results
-            });
+            if (len(results) > 1) { 
+                res.status(200).json({
+                    timestamp: results[0].timestamp,
+                    temperature: results[0].temperature,
+                    humidity: results[0].humidity
+                });
+            } else { 
+                res.status(404).json({
+                    error: true,
+                    message: 'No Results Found'
+                })
+            }
+            
 
             // When done with the connection, release it.
             connection.release();
