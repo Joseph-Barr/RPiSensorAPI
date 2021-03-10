@@ -61,7 +61,7 @@ router.get('/latest', function (req, res, next) {
         // Use the connection
         connection.query(query, (error, results, fields) => {
             console.log(results);
-            if (results.length > 1) { 
+            if (results.length > 0) { 
                 res.status(200).json({
                     timestamp: results[0].timestamp,
                     temperature: results[0].temperature,
