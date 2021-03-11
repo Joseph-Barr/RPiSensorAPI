@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var cors = require('cors')
 
 const pool = require('../app').pool;
 // POST sensor data
@@ -40,8 +41,8 @@ router.post('/add', function (req, res, next) {
     });
 });
 
-/* GET lastest reading. */
-router.get('/latest', function (req, res, next) {
+/* GET lastest reading. This route has CORS enabled (as indicated by the middleware function)*/
+router.get('/latest', cors(), function (req, res, next) {
     pool.getConnection(function (err, connection) {
         if (err) {
             console.error('Connection Error: ' + err);
